@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="movies.html" class="nav-link">Home</a>
+            <a href="add-movie.html" class="nav-link admin-only" id="addMovieBtn">Add Movie</a>
+        </div>
+        <div class="navbar-right">
+            <div class="user-greeting">
+                <span id="userGreeting">Hi, Guest</span>
+            </div>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+    <div class="movie-container">
+        <h1 style="margin-top: 60px;">Movie List</h1>
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search movies by title...">
+                <button id="searchButton">Search</button>
+            </div>
+        </div>
+        <div id="movie-list" class="movie-list">
+            <!-- Movies will be injected here dynamically -->
+        </div>
+    </div>
+
+    <!-- Import your JS file to handle dynamic content -->
+    <script type="module" src="js/movies.js"></script>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About MoviesNow</h3>
+                <p>Your ultimate destination for exploring movies. Discover the latest releases, classic favorites, and detailed information about films from around the world.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="movies.html">Home</a></li>
+                    <li><a href="add-movie.html" id="footerAddMovieLink" class="admin-only">Add Movie</a></li>
+                    <li><a href="#">Popular Movies</a></li>
+                    <li><a href="#">Latest Releases</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:contact@moviesnow.com">contact@moviesnow.com</a></li>
+                    <li><a href="tel:+1234567890">+91 1234567890</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="#" title="Facebook">FB</a>
+                    <a href="#" title="Twitter">TW</a>
+                    <a href="#" title="Instagram">IG</a>
+                    <a href="#" title="YouTube">YT</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>Made with ❤️ by <a href="https://github.com/hruthik733">Hruthik Pavarala</a></p>
+            <p>&copy; 2025 MoviesNow. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
