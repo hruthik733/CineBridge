@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyD4larJLfZWDcLufrMF9zl0mi4hWPyqFv8",
+    apiKey: "YOUR_FIREBASE_APIKEY",
     authDomain: "cine-bridge.firebaseapp.com",
     projectId: "cine-bridge",
     storageBucket: "cine-bridge.firebasestorage.app",
