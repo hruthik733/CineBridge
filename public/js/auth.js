@@ -6,14 +6,14 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://w
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDu5_HRIYifl5X4ivrE9lTLmW6Nk122OiM",
-    authDomain: "moviesnow-3f7d6.firebaseapp.com",
-    projectId: "moviesnow-3f7d6",
-    storageBucket: "moviesnow-3f7d6.firebasestorage.app",
-    messagingSenderId: "191863944391",
-    appId: "1:191863944391:web:8e8149d1e5d3c11e5a7ae2",
-    measurementId: "G-28VFK06WQJ"
-};
+    apiKey: "YOUR_FIREBASE_APIKEY",
+    authDomain: "cine-bridge.firebaseapp.com",
+    projectId: "cine-bridge",
+    storageBucket: "cine-bridge.firebasestorage.app",
+    messagingSenderId: "1071237792690",
+    appId: "1:1071237792690:web:9bedd27d3779dc4c375aab",
+    measurementId: "G-F1NT3WD53D"
+  };
 
 // Initialize Firebase and Authentication
 const app = initializeApp(firebaseConfig);

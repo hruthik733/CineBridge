@@ -4,19 +4,28 @@ const selectedMovie = JSON.parse(localStorage.getItem("selectedMovie"));
 // Add this near the top of the file after getting selectedMovie
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+import { WatchlistManager } from './watchlist.js';
+import { updateWatchNowButton } from './watchmode.js';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDu5_HRIYifl5X4ivrE9lTLmW6Nk122OiM",
-    authDomain: "moviesnow-3f7d6.firebaseapp.com",
-    projectId: "moviesnow-3f7d6",
-    storageBucket: "moviesnow-3f7d6.firebasestorage.app",
-    messagingSenderId: "191863944391",
-    appId: "1:191863944391:web:8e8149d1e5d3c11e5a7ae2",
-    measurementId: "G-28VFK06WQJ"
+    apiKey: "YOUR_FIREBASE_APIKEY",
+    authDomain: "cine-bridge.firebaseapp.com",
+    projectId: "cine-bridge",
+    storageBucket: "cine-bridge.firebasestorage.app",
+    messagingSenderId: "1071237792690",
+    appId: "1:1071237792690:web:9bedd27d3779dc4c375aab",
+    measurementId: "G-F1NT3WD53D"
 };
+
+// TMDB API Configuration
+const TMDB_API_KEY = 'YOUR_TMDB_API_KEY';
+const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// Initialize watchlist manager
+const watchlistManager = new WatchlistManager();
 
 // Add this function to check admin status
 function checkAdminStatus() {
@@ -49,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 async function fetchActorDetails(actorName) {
     try {
-        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(actorName)}&apikey=c66312c0`);
+        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(actorName)}&apikey=YOUR_OMDB_API_KEY`);
         const data = await response.json();
         // Only return the poster URL if it exists and is not N/A
         if (data.Response === "True" && data.Poster && data.Poster !== "N/A") {
@@ -63,15 +72,85 @@ async function fetchActorDetails(actorName) {
     }
 }
 
+// Function to fetch movie trailer from TMDB
+async function fetchMovieTrailer(movieTitle) {
+    try {
+        // First search for the movie to get its ID
+        const searchResponse = await fetch(
+            `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&language=en-US&query=${encodeURIComponent(movieTitle)}`
+        );
+        const searchData = await searchResponse.json();
+        
+        if (searchData.results && searchData.results.length > 0) {
+            const movieId = searchData.results[0].id;
+            
+            // Then fetch the videos for that movie
+            const videosResponse = await fetch(
+                `${TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${TMDB_API_KEY}&language=en-US`
+            );
+            const videosData = await videosResponse.json();
+            
+            if (videosData.results && videosData.results.length > 0) {
+                // Find the first official trailer
+                const trailer = videosData.results.find(video => 
+                    video.type === "Trailer" && video.site === "YouTube"
+                ) || videosData.results[0]; // Fallback to first video if no trailer found
+                
+                return trailer.key;
+            }
+        }
+        return null;
+    } catch (error) {
+        console.error("Error fetching trailer:", error);
+        return null;
+    }
+}
+
+// Function to create YouTube iframe
+function createTrailerIframe(youtubeKey) {
+    const trailerContainer = document.getElementById("trailerContainer");
+    if (!trailerContainer) return;
+
+    if (youtubeKey) {
+        trailerContainer.innerHTML = `
+            <div class="trailer-wrapper">
+                <h3>Official Trailer</h3>
+                <div class="video-container">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/${youtubeKey}" 
+                        title="Movie Trailer"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        `;
+    } else {
+        trailerContainer.innerHTML = `
+            <div class="trailer-wrapper">
+                <h3>Trailer Not Available</h3>
+                <p>Sorry, no trailer is available for this movie.</p>
+            </div>
+        `;
+    }
+}
+
 async function fetchMovieDetails(movieTitle) {
     try {
-        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(movieTitle)}&apikey=c66312c0`);
+        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(movieTitle)}&apikey=YOUR_OMDB_API_KEY`);
         const data = await response.json();
         
         if (data.Response === "True") {
             // Update the UI with all available movie details
             document.getElementById("movieTitle").textContent = data.Title;
             document.getElementById("movieGenre").textContent = `Genre: ${data.Genre}`;
+            
+            // Update the Watch Now button with streaming information
+            const movieYear = data.Year ? data.Year.split('–')[0] : null; // Get the first year if it's a range
+            updateWatchNowButton(data.Title, movieYear);
             
             // Main details on the left
             document.getElementById("mainDetails").innerHTML = `
@@ -149,6 +228,13 @@ async function fetchMovieDetails(movieTitle) {
             } else if (data.Poster && data.Poster !== "N/A") {
                 document.getElementById("movieThumbnail").src = data.Poster;
             }
+
+            // Fetch and display trailer
+            const trailerKey = await fetchMovieTrailer(movieTitle);
+            createTrailerIframe(trailerKey);
+
+            // Set the movie ID for watchlist functionality
+            watchlistManager.setMovieId(data.imdbID);
         } else {
             // Fallback to local data if API doesn't find the movie
             if (selectedMovie) {
