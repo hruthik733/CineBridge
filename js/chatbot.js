@@ -7,7 +7,7 @@ class MovieChatbot {
         this.sendBtn = document.getElementById('chatSend');
         this.chatIcon = document.querySelector('.chat-icon');
         this.closeIcon = document.querySelector('.close-icon');
-        this.OMDB_API_KEY = 'c66312c0'; // Your OMDB API key
+        this.OMDB_API_KEY = 'YOUR_OMDB_API_KEY'; // Your OMDB API key
         
         this.setupEventListeners();
         this.sendWelcomeMessage();
