@@ -1,4 +1,4 @@
-![logo](https://github.com/user-attachments/assets/a7ad046d-f63f-4226-b83d-75349eb763ad)
+![logo](https://github.com/user-attachments/assets/5c9bc7a3-15bd-4c02-ab18-a4b2d7e56ab3)
 
 # 🎬 CineBridge – Your Gateway to Movies Across OTT Platforms
 
