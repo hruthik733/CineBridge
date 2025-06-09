@@ -1,4 +1,4 @@
-const WATCHMODE_API_KEY = 'Wohwag9SlpUeavUw02BFKjPisEnjUOPF8axb9VTG';
+const WATCHMODE_API_KEY = 'YOUR_WATCHMODE_API_KEY';
 
 async function searchMovie(title, year) {
     try {
