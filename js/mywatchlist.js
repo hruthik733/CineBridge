@@ -4,7 +4,7 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 
 // Your Firebase config (reuse from your other files)
 const firebaseConfig = {
-    apiKey: "AIzaSyD4larJLfZWDcLufrMF9zl0mi4hWPyqFv8",
+    apiKey: "YOUR_FIREBASE_APIKEY",
     authDomain: "cine-bridge.firebaseapp.com",
     projectId: "cine-bridge",
     storageBucket: "cine-bridge.firebasestorage.app",
@@ -48,7 +48,7 @@ async function fetchMovieFromFirestore(imdbID) {
 }
 
 async function fetchMovieFromOMDb(imdbID) {
-    const apiKey = 'c66312c0'; // Replace with your OMDb API key
+    const apiKey = 'YOUR_OMDB_API_KEY'; // Replace with your OMDb API key
     const url = `https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`;
     try {
         const res = await fetch(url);
