@@ -8,7 +8,7 @@ import { WatchlistManager } from './watchlist.js';
 import { updateWatchNowButton } from './watchmode.js';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD4larJLfZWDcLufrMF9zl0mi4hWPyqFv8",
+    apiKey: "YOUR_FIREBASE_APIKEY",
     authDomain: "cine-bridge.firebaseapp.com",
     projectId: "cine-bridge",
     storageBucket: "cine-bridge.firebasestorage.app",
@@ -18,7 +18,7 @@ const firebaseConfig = {
 };
 
 // TMDB API Configuration
-const TMDB_API_KEY = '2f4038e83265214a0dcd6ec2eb3276f5';
+const TMDB_API_KEY = 'YOUR_TMDB_API_KEY';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
 const app = initializeApp(firebaseConfig);
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 async function fetchActorDetails(actorName) {
     try {
-        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(actorName)}&apikey=c66312c0`);
+        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(actorName)}&apikey=YOUR_OMDB_API_KEY`);
         const data = await response.json();
         // Only return the poster URL if it exists and is not N/A
         if (data.Response === "True" && data.Poster && data.Poster !== "N/A") {
@@ -140,7 +140,7 @@ function createTrailerIframe(youtubeKey) {
 
 async function fetchMovieDetails(movieTitle) {
     try {
-        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(movieTitle)}&apikey=c66312c0`);
+        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(movieTitle)}&apikey=YOUR_OMDB_API_KEY`);
         const data = await response.json();
         
         if (data.Response === "True") {
