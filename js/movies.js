@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 
 // Firebase config for authentication
 const firebaseConfig = {
-    apiKey: "AIzaSyD4larJLfZWDcLufrMF9zl0mi4hWPyqFv8",
+    apiKey: "YOUR_FIREBASE_APIKEY",
     authDomain: "cine-bridge.firebaseapp.com",
     projectId: "cine-bridge",
     storageBucket: "cine-bridge.firebasestorage.app",
@@ -20,7 +20,7 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 // TMDB API Configuration
-const TMDB_API_KEY = '2f4038e83265214a0dcd6ec2eb3276f5';
+const TMDB_API_KEY = 'YOUR_TMDB_API_KEY';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
