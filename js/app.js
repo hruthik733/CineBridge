@@ -5,7 +5,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebas
 
 // Firebase configuration (replace with your own)
 const firebaseConfig = {
-    apiKey: "AIzaSyD4larJLfZWDcLufrMF9zl0mi4hWPyqFv8",
+    apiKey: "YOUR_FIREBASE_APIKEY",
     authDomain: "cine-bridge.firebaseapp.com",
     projectId: "cine-bridge",
     storageBucket: "cine-bridge.firebasestorage.app",
